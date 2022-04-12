@@ -11,9 +11,8 @@ export default class LoginController {
 
     try {
       await auth.use('web').attempt(email, password)
-      console.log(session)
-
-      response.ok('success')
+      await console.log(session)
+      return response.ok(session)
     } catch {
       return response.badRequest('Invalid credentials')
     }
