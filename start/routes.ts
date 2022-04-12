@@ -26,3 +26,5 @@ Route.get('/', async () => {
 
 Route.post('login', 'LoginController.signUp')
 Route.post('register','LoginController.register')
+Route.get('users','LoginController.users')
+Route.delete('logout','LoginController.logout')
