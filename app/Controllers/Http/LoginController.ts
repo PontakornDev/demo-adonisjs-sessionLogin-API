@@ -2,7 +2,6 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Database from '@ioc:Adonis/Lucid/Database'
 import User from 'App/Models/User'
 import Logger from '@ioc:Adonis/Core/Logger'
-import authConfig from 'Config/auth'
 
 export default class LoginController {
   public async signUp ({ auth, request, response, session }: HttpContextContract) {
@@ -18,7 +17,7 @@ export default class LoginController {
     }
   }
 
-  public async register ({ auth, request, response }){
+  public async register ({ request, response }){
     const email = request.input('email')
     const password = request.input('password')
 
