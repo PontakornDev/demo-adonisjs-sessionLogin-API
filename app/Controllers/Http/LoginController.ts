@@ -4,20 +4,21 @@ import User from 'App/Models/User'
 import Logger from '@ioc:Adonis/Core/Logger'
 
 export default class LoginController {
+  private static id : string
+
   public async signUp ({ auth, request, response, session }: HttpContextContract) {
     const email = request.input('email')
     const password = request.input('password')
 
     try {
       await auth.use('web').attempt(email, password)
-      await console.log(session)
+      LoginController.id = session.store.values.auth_web
       return response.ok({token:session.sessionId})
     } catch {
       return response.badRequest('Invalid credentials')
     }
   }
-
-  public async register ({ request, response }){
+  public async register ({ request, response }: HttpContextContract){
     const email = request.input('email')
     const password = request.input('password')
 
@@ -35,7 +36,8 @@ export default class LoginController {
   }
 
   public async users ({ response }: HttpContextContract){
-    const users = await Database.from('users')
+    // await auth.use('web').authenticate()
+    const users = await Database.from('users').where('id',LoginController.id)
     if (users[0] == null) {
       return response.notFound({ message: 'not found' })
     } else {
