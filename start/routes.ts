@@ -28,3 +28,11 @@ Route.post('login', 'LoginController.signUp')
 Route.post('register','LoginController.register')
 Route.get('users','LoginController.users')
 Route.delete('logout','LoginController.logout')
+
+Route.group(() => {
+  Route.get('/getdata', 'CRUDController.index')
+  Route.get('/getedit/:id', 'CRUDController.edit')
+  Route.put('/update/:id', 'CRUDController.update')
+  Route.post('/add', 'CRUDController.create')
+  Route.delete('/delete/:id','CRUDController.delete')
+}).prefix('/api')

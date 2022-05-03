@@ -36,7 +36,6 @@ export default class LoginController {
   }
 
   public async users ({ response }: HttpContextContract){
-    // await auth.use('web').authenticate()
     const users = await Database.from('users').where('id',LoginController.id)
     if (users[0] == null) {
       return response.notFound({ message: 'not found' })
